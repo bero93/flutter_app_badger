@@ -32,6 +32,11 @@ public class FlutterAppBadgerPlugin implements MethodCallHandler {
   public void onMethodCall(MethodCall call, Result result) {
     if (call.method.equals("updateBadgeCount")) {
       ShortcutBadger.applyCount(context, Integer.valueOf(call.argument("count").toString()));
+      
+      //xiaomi fix
+      Notification notification = builder.build();
+      ShortcutBadger.applyNotification(context, notification, Integer.valueOf(call.argument("count")));
+      
       result.success(null);
     } else if (call.method.equals("removeBadge")) {
       ShortcutBadger.removeCount(context);
